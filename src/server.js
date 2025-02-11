@@ -5,6 +5,7 @@ import path from "path";
 import Cookie from "@hapi/cookie";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
+import Joi from "joi";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
@@ -25,6 +26,7 @@ async function init() {
   });
   await server.register(Vision);
   await server.register(Cookie);
+  server.validator(Joi);
   server.auth.strategy("session", "cookie", {
     cookie: {
       name: process.env.COOKIE_NAME,
